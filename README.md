@@ -55,7 +55,9 @@ let graph = Graph(
     ]
 )
 
-let nextGraph = graph.addEdge((vertexB, vertexA))
+let nextGraphWithNewEdge = graph.addEdge(
+    Edge(from: vertexB.id, to: vertexA.id)
+)
 ```
 
 ## License

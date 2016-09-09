@@ -53,6 +53,14 @@ class GriftTests: XCTestCase {
     XCTAssertEqual(emptyGraphArray.count, 0)
   }
 
+  func testGraphHasVertexWithId() {
+    let vertexA = Vertex(title: "Vertex A", body: "...")
+    let vertexB = Vertex(title: "Vertex B", body: "...")
+    let graph = Grift.Graph(vertices: [vertexA])
+    XCTAssertEqual(graph.hasVertexWithId(vertexA.id), true)
+    XCTAssertEqual(graph.hasVertexWithId(vertexB.id), false)
+  }
+
   func testGraphHasVertex() {
     let vertexA = Vertex(title: "Vertex A", body: "...")
     let vertexB = Vertex(title: "Vertex B", body: "...")
@@ -118,40 +126,36 @@ class GriftTests: XCTestCase {
       Vertex(title: "Vertex A", body: "..."),
       Vertex(title: "Vertex B", body: "...")
     ])
+
     // ENSURE A NEW EDGE CAN BE ADDED
-    let graph2 = Grift.addEdge(
-      graph: graph,
-      edgeVertices: Grift.VertexPair(graph.vertices[0], graph.vertices[1])
+    let graph2 = graph.addEdge(
+      Grift.Edge(from: graph.vertices[0].id, to: graph.vertices[1].id)
     )!
     XCTAssertEqual(graph2.edges[0].from == graph2.vertices[0].id, true)
     XCTAssertEqual(graph2.edges[0].to == graph2.vertices[1].id, true)
+
     // ENSURE DUPLICATE EDGES CAN'T BE ADDED
-    let graph3 = Grift.addEdge(
-      graph: graph2,
-      edgeVertices: Grift.VertexPair(graph.vertices[0], graph.vertices[1])
+    let graph3 = graph2.addEdge(
+      Grift.Edge(from: graph.vertices[0].id, to: graph.vertices[1].id)
     )
     XCTAssertEqual(graph3 == nil, true)
+
     // ENSURE EDGES WITH VERTICES OUTSIDE GRAPH CAN'T BE ADDED
-    let graph4 = Grift.addEdge(
-      graph: graph2,
-      edgeVertices: Grift.VertexPair(
-        graph.vertices[0],
-        Vertex(title: "Not in graph", body: "...")
+    let graph4 = graph2.addEdge(
+      Grift.Edge(
+        from: graph.vertices[0].id,
+        to: NSUUID()
       )
     )
     XCTAssertEqual(graph4 == nil, true)
-    // ENSURE A NEW EDGE CAN BE ADDED VIA STRUCT METHOD
-    let graph5 = graph.addEdge(
-      Grift.VertexPair(graph.vertices[0], graph.vertices[1])
-    )!
-    XCTAssertEqual(graph5.edges[0].from == graph5.vertices[0].id, true)
-    XCTAssertEqual(graph5.edges[0].to == graph5.vertices[1].id, true)
+
   }
 
   static var allTests : [(String, (GriftTests) -> () throws -> Void)] {
     return [
       ("testInitialization", testInitialization),
       ("testGraphHasVertex", testGraphHasVertex),
+      ("testGraphHasVertex", testGraphHasVertexWithId),
       ("testGraphAddVertex", testGraphAddVertex),
       ("testGraphHasEdge", testGraphHasEdge),
       ("testGraphAddEdge", testGraphAddEdge),

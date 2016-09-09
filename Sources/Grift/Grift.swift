@@ -47,12 +47,16 @@ public struct Graph {
   public let vertices: [Vertex]
   public let edges: [Edge]
 
-  public func hasVertex(_ vertex: Vertex) -> Bool {
+  public func hasVertexWithId(_ vertexId: NSUUID) -> Bool {
     let matches = self.vertices.reduce(0) {
       total, existingVertex in
-      total + (existingVertex.id == vertex.id ? 1 : 0)
+      total + (existingVertex.id == vertexId ? 1 : 0)
     }
     return matches > 0
+  }
+
+  public func hasVertex(_ vertex: Vertex) -> Bool {
+    return self.hasVertexWithId(vertex.id)
   }
 
   public func addVertex(_ vertex: Vertex) -> Graph? {
@@ -71,8 +75,8 @@ public struct Graph {
     return matches > 0
   }
 
-  public func addEdge(_ edgeVertices: VertexPair) -> Graph? {
-    return Grift.addEdge(graph: self, edgeVertices: edgeVertices)
+  public func addEdge(_ newEdge: Edge) -> Graph? {
+    return Grift.addEdge(graph: self, newEdge: newEdge)
   }
 }
 
@@ -90,13 +94,11 @@ public func addVertex(graph: Graph, vertex: Vertex) -> Graph? {
   )
 }
 
-public func addEdge(graph: Graph, edgeVertices: VertexPair) -> Graph? {
-  let (fromVertex, toVertex) = edgeVertices
-  let newEdge = Edge(from: fromVertex.id, to: toVertex.id)
+private func addEdge(graph: Graph, newEdge: Edge) -> Graph? {
 
   if graph.hasEdge(newEdge) ||
-    !graph.hasVertex(fromVertex) ||
-    !graph.hasVertex(toVertex)
+    !graph.hasVertexWithId(newEdge.from) ||
+    !graph.hasVertexWithId(newEdge.to)
   {
     return nil
   }
