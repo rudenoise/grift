@@ -82,9 +82,7 @@ public struct Graph {
 
 public typealias VertexPair = (Vertex, Vertex)
 
-public typealias GraphArray = [Graph]
-
-public func addVertex(graph: Graph, vertex: Vertex) -> Graph? {
+private func addVertex(graph: Graph, vertex: Vertex) -> Graph? {
   if graph.hasVertex(vertex) {
     return nil
   }
@@ -107,15 +105,5 @@ private func addEdge(graph: Graph, newEdge: Edge) -> Graph? {
     vertices: graph.vertices,
     edges: graph.edges + [newEdge]
   )
-}
-
-private func findParentGraph(_ graphArray: GraphArray, _ vertex: Vertex) -> Graph? {
-  let found = graphArray.filter({
-    return $0.hasVertex(vertex)
-  })
-  if found.count > 0 {
-    return found[0]
-  }
-  return nil
 }
 

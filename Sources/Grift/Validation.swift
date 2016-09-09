@@ -5,16 +5,6 @@ public func validateGraphInternals(_ graph: Graph) -> Bool {
     validateEdges(graph)
 }
 
-private func graphIdForVertexId(graphs: GraphArray, vertexId: NSUUID) -> NSUUID? {
-  let filtered = graphs.filter({
-    return graphHasVertex(graph: $0, vertexId: vertexId)
-  })
-  if filtered.count == 1 {
-    return filtered[0].id
-  }
-  return nil
-}
-
 private func graphHasVertex(graph: Graph, vertexId: NSUUID) -> Bool {
   return graph
     .vertices

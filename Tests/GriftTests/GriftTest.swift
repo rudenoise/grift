@@ -48,9 +48,6 @@ class GriftTests: XCTestCase {
     XCTAssertEqual(emptyGraph.edges.count, 0)
     XCTAssertEqual(emptyGraph.vertices.count, 0)
 
-    // TEST GRAPH ARRAY
-    let emptyGraphArray = Grift.GraphArray()
-    XCTAssertEqual(emptyGraphArray.count, 0)
   }
 
   func testGraphHasVertexWithId() {
@@ -79,17 +76,13 @@ class GriftTests: XCTestCase {
     XCTAssertEqual(graphA2.vertices.count, 1)
 
     // ADD A VERTEX USING A FUNCTION, UNWRAPPIN THE OPTIONAL IMEDIATLY
-    let graphA3 = Grift.addVertex(
-      graph: graphA2,
-      vertex: Vertex(title: "Another Virtex", body: "Yes, the first.")
+    let graphA3 = graphA2.addVertex(
+      Vertex(title: "Another Virtex", body: "Yes, the first.")
     )!
     XCTAssertEqual(graphA3.vertices.count, 2)
 
     // PREVENT RE-ADDING SAME VERTEX
-    let graphA4 = Grift.addVertex(
-      graph: graphA3,
-      vertex: vertexA
-    )
+    let graphA4 = graphA3.addVertex(vertexA)
     XCTAssertEqual(graphA4 == nil, true)
   }
 
