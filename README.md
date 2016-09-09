@@ -9,8 +9,8 @@ It is written in a functional/immutable style.
 Developed and tested on Linux (Ubuntu 16.04) using Swift 3 (Preview
 6).
 
-The library has basic types for _vertices_ and _edges_ and uses
-JSON to persist graphs.
+The library has basic types for _graphs_, _vertices_ and _edges_
+and uses JSON for persistence.
 
 This project is in its early stages and therefore volatile and
 likely to change.
