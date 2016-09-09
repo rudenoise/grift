@@ -4,7 +4,7 @@ import Foundation
 
 class GriftJSONTests: XCTestCase {
 
-  func testReadEmptyGraphStruct() {
+  func testReadEmptyGraph() {
 
     // REJECT INVALID FILE PATH
     XCTAssertTrue(
@@ -18,7 +18,7 @@ class GriftJSONTests: XCTestCase {
     XCTAssertEqual(tg1.vertices.count, 0)
   }
 
-  func testReadGraphStructWithVertices() {
+  func testReadGraphWithVertices() {
     let tg2Opt = Grift.readFromFile(path: "./Tests/GriftTests/files/graphWithVertices.json")
     XCTAssertTrue(tg2Opt != nil)
     let tg2 = tg2Opt!
@@ -32,7 +32,7 @@ class GriftJSONTests: XCTestCase {
     XCTAssertEqual(tg2.vertices[1].body, "Vertex B body...")
   }
 
-  func testReadGraphStructWithVerticesAndEdges() {
+  func testReadGraphWithVerticesAndEdges() {
     let tg3Opt = Grift.readFromFile(path: "./Tests/GriftTests/files/graphWithVerticesAndEdges.json")
     XCTAssertTrue(tg3Opt != nil)
     let tg3 = tg3Opt!
@@ -42,14 +42,14 @@ class GriftJSONTests: XCTestCase {
     XCTAssertEqual(tg3.edges[0].id, NSUUID(uuidString: "A9509DD7-8EFB-420F-9D3F-85EDD5854259"))
     XCTAssertEqual(tg3.edges[0].from, tg3.vertices[0].id)
     XCTAssertEqual(tg3.edges[1].id, NSUUID(uuidString: "9E9A109F-3445-4EC1-B8DE-3A0936D127E1"))
-    XCTAssertTrue(Grift.validateGraphStructInternals(tg3))
+    XCTAssertTrue(Grift.validateGraphInternals(tg3))
   }
 
   static var allTests : [(String, (GriftJSONTests) -> () throws -> Void)] {
     return [
-      ("testReadEmptyGraphStruct", testReadEmptyGraphStruct),
-      ("testReadGraphStructWithVertices", testReadGraphStructWithVertices),
-      ("testReadGraphStructWithVerticesAndEdges", testReadGraphStructWithVerticesAndEdges)
+      ("testReadEmptyGraph", testReadEmptyGraph),
+      ("testReadGraphWithVertices", testReadGraphWithVertices),
+      ("testReadGraphWithVerticesAndEdges", testReadGraphWithVerticesAndEdges)
     ]
   }
 }

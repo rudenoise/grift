@@ -25,7 +25,7 @@ class GriftTests: XCTestCase {
     XCTAssertEqual(vertexB.body, "Some more text...")
 
     // COMBINE VERTEX, EDGE AND GRAPH
-    let graphA = Grift.GraphStruct(
+    let graphA = Grift.Graph(
       vertices: [
         vertexA,
         vertexB
@@ -43,26 +43,26 @@ class GriftTests: XCTestCase {
     XCTAssertEqual(graphA.edges[0].to, vertexB.id)
 
     // TEST THAT DEFAULTS ARE EFFECTIVE
-    let emptyGraph = Grift.GraphStruct()
+    let emptyGraph = Grift.Graph()
 
     XCTAssertEqual(emptyGraph.edges.count, 0)
     XCTAssertEqual(emptyGraph.vertices.count, 0)
 
     // TEST GRAPH ARRAY
-    let emptyGraphArray = Grift.GraphStructArray()
+    let emptyGraphArray = Grift.GraphArray()
     XCTAssertEqual(emptyGraphArray.count, 0)
   }
 
   func testGraphHasVertex() {
     let vertexA = Vertex(title: "Vertex A", body: "...")
     let vertexB = Vertex(title: "Vertex B", body: "...")
-    let graph = Grift.GraphStruct(vertices: [vertexA])
+    let graph = Grift.Graph(vertices: [vertexA])
     XCTAssertEqual(graph.hasVertex(vertexA), true)
     XCTAssertEqual(graph.hasVertex(vertexB), false)
   }
 
   func testGraphAddVertex() {
-    let graphA = Grift.GraphStruct()
+    let graphA = Grift.Graph()
     XCTAssertEqual(graphA.vertices.count, 0)
 
     // ADD A VERTEX USING A METHOD, UNWRAPPIN THE OPTIONAL IMEDIATLY
@@ -72,14 +72,14 @@ class GriftTests: XCTestCase {
 
     // ADD A VERTEX USING A FUNCTION, UNWRAPPIN THE OPTIONAL IMEDIATLY
     let graphA3 = Grift.addVertex(
-      graphStruct: graphA2,
+      graph: graphA2,
       vertex: Vertex(title: "Another Virtex", body: "Yes, the first.")
     )!
     XCTAssertEqual(graphA3.vertices.count, 2)
 
     // PREVENT RE-ADDING SAME VERTEX
     let graphA4 = Grift.addVertex(
-      graphStruct: graphA3,
+      graph: graphA3,
       vertex: vertexA
     )
     XCTAssertEqual(graphA4 == nil, true)
@@ -90,7 +90,7 @@ class GriftTests: XCTestCase {
     let vertexB = Vertex(title: "VB", body: "...")
     let vertexC = Vertex(title: "VC", body: "...")
     let edgeA = Edge(from: vertexA.id, to: vertexB.id)
-    let graphA = Grift.GraphStruct()
+    let graphA = Grift.Graph()
     // ENSURE hasEdge IS PRESENT
     // AND RETURNS FALSE WHEN EMPTY
     XCTAssertEqual(
@@ -98,7 +98,7 @@ class GriftTests: XCTestCase {
       false
     )
     // ENSURE EDGE IS NOT DETECTED WHEN NO MATCH
-    let graphB = Grift.GraphStruct(
+    let graphB = Grift.Graph(
       vertices: [vertexA, vertexB, vertexC],
       edges: [edgeA]
     )
@@ -114,26 +114,26 @@ class GriftTests: XCTestCase {
   }
 
   func testGraphAddEdge() {
-    let graph = Grift.GraphStruct(vertices: [
+    let graph = Grift.Graph(vertices: [
       Vertex(title: "Vertex A", body: "..."),
       Vertex(title: "Vertex B", body: "...")
     ])
     // ENSURE A NEW EDGE CAN BE ADDED
     let graph2 = Grift.addEdge(
-      graphStruct: graph,
+      graph: graph,
       edgeVertices: Grift.VertexPair(graph.vertices[0], graph.vertices[1])
     )!
     XCTAssertEqual(graph2.edges[0].from == graph2.vertices[0].id, true)
     XCTAssertEqual(graph2.edges[0].to == graph2.vertices[1].id, true)
     // ENSURE DUPLICATE EDGES CAN'T BE ADDED
     let graph3 = Grift.addEdge(
-      graphStruct: graph2,
+      graph: graph2,
       edgeVertices: Grift.VertexPair(graph.vertices[0], graph.vertices[1])
     )
     XCTAssertEqual(graph3 == nil, true)
     // ENSURE EDGES WITH VERTICES OUTSIDE GRAPH CAN'T BE ADDED
     let graph4 = Grift.addEdge(
-      graphStruct: graph2,
+      graph: graph2,
       edgeVertices: Grift.VertexPair(
         graph.vertices[0],
         Vertex(title: "Not in graph", body: "...")

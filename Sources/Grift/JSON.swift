@@ -1,6 +1,6 @@
 import Foundation
 
-public func readFromFile(path: String) -> GraphStruct? {
+public func readFromFile(path: String) -> Graph? {
   if let jsonStr = Grift.readFile(path: path) {
     if let data = jsonStr.data(using: String.Encoding.utf8) {
       do {
@@ -9,7 +9,7 @@ public func readFromFile(path: String) -> GraphStruct? {
           options: .allowFragments
         )
         if let topicDict = json as? [String: Any] {
-          return createGraphStruct(rawData: topicDict)
+          return createGraph(rawData: topicDict)
         }
       } catch {
         print("error serializing topic JSON: \(error)")
@@ -20,13 +20,13 @@ public func readFromFile(path: String) -> GraphStruct? {
   return nil
 }
 
-private func createGraphStruct(rawData: [String: Any]) -> GraphStruct? {
+private func createGraph(rawData: [String: Any]) -> Graph? {
   if
     let id = rawData["id"] as? String,
     let vertices = getVertices(rawData["vertices"] as? [[String: String]]),
     let edges = getEdges(rawData["edges"] as? [[String: String]])
   {
-    return GraphStruct(
+    return Graph(
       id: NSUUID(uuidString: id),
       vertices: vertices,
       edges: edges

@@ -7,45 +7,45 @@ class GriftValidationTests: XCTestCase {
   func testVertexValidation() {
 
     // EMPTY GRAPH IS VALID
-    XCTAssertTrue(Grift.validateGraphStructInternals(GraphStruct()))
+    XCTAssertTrue(Grift.validateGraphInternals(Graph()))
 
     let va = Vertex(title: "VA", body: "")
     let vb = Vertex(title: "VA", body: "")
 
     // REJECT GRAPH WITH DUPLICATE VERTICES
-    let gA = GraphStruct(vertices: [va, va])
-    XCTAssertFalse(validateGraphStructInternals(gA))
+    let gA = Graph(vertices: [va, va])
+    XCTAssertFalse(validateGraphInternals(gA))
 
     // ACCEPT GRAPH WITH TWO VETICES
-    let gB = GraphStruct(vertices: [va, vb])
-    XCTAssertTrue(validateGraphStructInternals(gB))
+    let gB = Graph(vertices: [va, vb])
+    XCTAssertTrue(validateGraphInternals(gB))
   }
 
   func testEdgeValidation() {
     // EMPTY GRAPH IS VALID
-    XCTAssertEqual(Grift.validateGraphStructInternals(GraphStruct()), true)
+    XCTAssertEqual(Grift.validateGraphInternals(Graph()), true)
 
     // REJECT GRAPH WITH INTERNAL EDGES BUT NO VERTECIES
-    let gA = GraphStruct(
+    let gA = Graph(
       edges: [Edge(from: NSUUID(), to: NSUUID())]
     )
     XCTAssertFalse(
-      validateGraphStructInternals(gA)
+      validateGraphInternals(gA)
     )
 
     // ACCEPT GRAPH WITH VALID VERTICES
-    let gB = GraphStruct(
+    let gB = Graph(
       vertices: [
         Vertex(title: "VA", body: ""),
         Vertex(title: "VB", body: ""),
       ]
     )
     XCTAssertTrue(
-      validateGraphStructInternals(gB)
+      validateGraphInternals(gB)
     )
 
     // REJECT GRAPH WITH EDGES THAT DON'T MAGCH VERTICES
-    let gC = GraphStruct(
+    let gC = Graph(
       vertices: [
         Vertex(title: "VA", body: ""),
         Vertex(title: "VB", body: ""),
@@ -53,7 +53,7 @@ class GriftValidationTests: XCTestCase {
       edges: [Edge(from: NSUUID(), to: NSUUID())]
     )
     XCTAssertFalse(
-      validateGraphStructInternals(gC)
+      validateGraphInternals(gC)
     )
   }
   static var allTests : [(String, (GriftValidationTests) -> () throws -> Void)] {

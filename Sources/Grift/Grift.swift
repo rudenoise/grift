@@ -30,7 +30,7 @@ public struct Vertex {
 
 }
 
-public struct GraphStruct {
+public struct Graph {
 
   public init(
     id: NSUUID? = nil,
@@ -55,8 +55,8 @@ public struct GraphStruct {
     return matches > 0
   }
 
-  public func addVertex(_ vertex: Vertex) -> GraphStruct? {
-    return  Grift.addVertex(graphStruct: self, vertex: vertex)
+  public func addVertex(_ vertex: Vertex) -> Graph? {
+    return  Grift.addVertex(graph: self, vertex: vertex)
   }
 
   public func hasEdge(_ edge: Edge) -> Bool {
@@ -71,44 +71,44 @@ public struct GraphStruct {
     return matches > 0
   }
 
-  public func addEdge(_ edgeVertices: VertexPair) -> GraphStruct? {
-    return Grift.addEdge(graphStruct: self, edgeVertices: edgeVertices)
+  public func addEdge(_ edgeVertices: VertexPair) -> Graph? {
+    return Grift.addEdge(graph: self, edgeVertices: edgeVertices)
   }
 }
 
 public typealias VertexPair = (Vertex, Vertex)
 
-public typealias GraphStructArray = [GraphStruct]
+public typealias GraphArray = [Graph]
 
-public func addVertex(graphStruct: GraphStruct, vertex: Vertex) -> GraphStruct? {
-  if graphStruct.hasVertex(vertex) {
+public func addVertex(graph: Graph, vertex: Vertex) -> Graph? {
+  if graph.hasVertex(vertex) {
     return nil
   }
-  return GraphStruct(
-    vertices: graphStruct.vertices + [vertex],
-    edges: graphStruct.edges
+  return Graph(
+    vertices: graph.vertices + [vertex],
+    edges: graph.edges
   )
 }
 
-public func addEdge(graphStruct: GraphStruct, edgeVertices: VertexPair) -> GraphStruct? {
+public func addEdge(graph: Graph, edgeVertices: VertexPair) -> Graph? {
   let (fromVertex, toVertex) = edgeVertices
   let newEdge = Edge(from: fromVertex.id, to: toVertex.id)
 
-  if graphStruct.hasEdge(newEdge) ||
-    !graphStruct.hasVertex(fromVertex) ||
-    !graphStruct.hasVertex(toVertex)
+  if graph.hasEdge(newEdge) ||
+    !graph.hasVertex(fromVertex) ||
+    !graph.hasVertex(toVertex)
   {
     return nil
   }
 
-  return GraphStruct(
-    vertices: graphStruct.vertices,
-    edges: graphStruct.edges + [newEdge]
+  return Graph(
+    vertices: graph.vertices,
+    edges: graph.edges + [newEdge]
   )
 }
 
-private func findParentGraphStruct(_ graphStructArray: GraphStructArray, _ vertex: Vertex) -> GraphStruct? {
-  let found = graphStructArray.filter({
+private func findParentGraph(_ graphArray: GraphArray, _ vertex: Vertex) -> Graph? {
+  let found = graphArray.filter({
     return $0.hasVertex(vertex)
   })
   if found.count > 0 {

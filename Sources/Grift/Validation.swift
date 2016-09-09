@@ -1,11 +1,11 @@
 import Foundation
 
-public func validateGraphStructInternals(_ graphStruct: GraphStruct) -> Bool {
-  return validateVertices(graphStruct) &&
-    validateEdges(graphStruct)
+public func validateGraphInternals(_ graph: Graph) -> Bool {
+  return validateVertices(graph) &&
+    validateEdges(graph)
 }
 
-private func graphIdForVertexId(graphs: GraphStructArray, vertexId: NSUUID) -> NSUUID? {
+private func graphIdForVertexId(graphs: GraphArray, vertexId: NSUUID) -> NSUUID? {
   let filtered = graphs.filter({
     return graphHasVertex(graph: $0, vertexId: vertexId)
   })
@@ -15,7 +15,7 @@ private func graphIdForVertexId(graphs: GraphStructArray, vertexId: NSUUID) -> N
   return nil
 }
 
-private func graphHasVertex(graph: GraphStruct, vertexId: NSUUID) -> Bool {
+private func graphHasVertex(graph: Graph, vertexId: NSUUID) -> Bool {
   return graph
     .vertices
     .map({ $0.id })
@@ -38,28 +38,28 @@ private func dedupeIds(_ idArr: [NSUUID]) -> [NSUUID] {
   }
 }
 
-private func validateVertices(_ graphStruct: GraphStruct) -> Bool {
-  let matches = graphStruct.vertices.reduce([NSUUID]()) {
+private func validateVertices(_ graph: Graph) -> Bool {
+  let matches = graph.vertices.reduce([NSUUID]()) {
     idArr, vertex in
     if !idArr.contains(vertex.id) {
       return idArr + [vertex.id]
     }
     return idArr
   }
-  return matches.count == graphStruct.vertices.count
+  return matches.count == graph.vertices.count
 }
 
-private func validateEdges(_ graphStruct: GraphStruct) -> Bool {
-  return graphStruct.edges.reduce(true) {
+private func validateEdges(_ graph: Graph) -> Bool {
+  return graph.edges.reduce(true) {
     valid, edge in
-    let validFromVertexId = graphStruct.vertices.reduce(false) {
+    let validFromVertexId = graph.vertices.reduce(false) {
       exists, vertex in
       if vertex.id == edge.from {
         return true
       }
       return exists
     }
-    let validToVertexId = graphStruct.vertices.reduce(false) {
+    let validToVertexId = graph.vertices.reduce(false) {
       exists, vertex in
       if vertex.id == edge.to {
         return true
