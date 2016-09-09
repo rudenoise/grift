@@ -1,0 +1,27 @@
+{
+    "id": "757907EA-F28B-4149-A773-5819F03418F6",
+    "vertices": [{
+        "id": "33A20585-02E5-4EDD-A7EB-1FC35F45C7C7",
+        "title": "Vertex A",
+        "body": "Vertex A body..."
+    }, {
+        "id": "2F1D77D7-D34E-467E-B93A-3AEF8FB6C41A",
+        "title": "Vertex B",
+        "body": "Vertex B body..."
+    }, {
+        "id": "5763D19F-D837-4CAD-81DA-2A7323AE5980",
+        "title": "Vertex C",
+        "body": "Vertex C body..."
+    }],
+    "edges": [{
+        "id": "A9509DD7-8EFB-420F-9D3F-85EDD5854259",
+        "from": "33A20585-02E5-4EDD-A7EB-1FC35F45C7C7",
+        "to": "2F1D77D7-D34E-467E-B93A-3AEF8FB6C41A",
+        "note": "From A to B"
+    }, {
+        "id": "9E9A109F-3445-4EC1-B8DE-3A0936D127E1",
+        "from": "33A20585-02E5-4EDD-A7EB-1FC35F45C7C7",
+        "to": "5763D19F-D837-4CAD-81DA-2A7323AE5980",
+        "note": "From A to C"
+    }]
+}
