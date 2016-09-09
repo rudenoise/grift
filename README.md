@@ -4,6 +4,7 @@
 
 This is a library for creating, manipulating, querying and
 persisting Graph Data using the Swift programming language.
+It is written in a functional/immutable style.
 
 Developed and tested on Linux (Ubuntu 16.04) using Swift 3 (Preview
 6).
@@ -35,6 +36,8 @@ let package = Package(
 ```swift
 import Grift
 
+// create some vertices
+
 let vertexA = Vertex(
     name: "Vertex A",
     body: "A string..."
@@ -45,7 +48,9 @@ let vertexB = Vertex(
     body: "Another string..."
 )
 
-let graph = Graph(
+// create a basic graph, with one edge
+
+let graphA = Graph(
     vertices: [vertexA, vertexB],
     edges: [
         Edge(
@@ -55,7 +60,18 @@ let graph = Graph(
     ]
 )
 
-let nextGraphWithNewEdge = graph.addEdge(
+// make a similar graph with another vertex
+
+let graphB = graphA.addVertex(
+    Vertex(
+        name: "Vertex C"
+        body: "Text again..."
+    )
+)
+
+// and another with a further edge
+
+let graphC = graphB.addEdge(
     Edge(from: vertexB.id, to: vertexA.id)
 )
 ```
