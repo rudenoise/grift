@@ -1,0 +1,4 @@
+# swift stuff
+.build/
+# vim stuff
+*.swp
