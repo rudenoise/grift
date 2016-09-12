@@ -18,8 +18,8 @@ class GriftFileIOTests: XCTestCase {
 
     let dateformatter = DateFormatter()
 
-    dateformatter.dateStyle = DateFormatter.Style.fullStyle
-    dateformatter.timeStyle = DateFormatter.Style.fullStyle
+    dateformatter.dateStyle = DateFormatter.Style.full
+    dateformatter.timeStyle = DateFormatter.Style.full
 
     let now = dateformatter.string(from: Date())
 
