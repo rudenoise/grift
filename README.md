@@ -6,8 +6,8 @@ This is a library for creating, manipulating, querying and
 persisting Graph Data using the Swift programming language.
 It is written in a functional/immutable style.
 
-Developed and tested on Linux (Ubuntu 16.04) using Swift 3 (Preview
-6).
+Developed and tested on Linux (Ubuntu 16.04) using Swift 3 (GM
+Candidate).
 
 The library has basic types for _graphs_, _vertices_ and _edges_
 and uses JSON for persistence.
