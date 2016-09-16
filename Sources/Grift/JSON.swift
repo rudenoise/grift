@@ -20,6 +20,10 @@ public func readFromFile(path: String) -> Graph? {
   return nil
 }
 
+internal func writeGraphToFile(graph: Graph, path: String) -> Bool {
+	return writeStringToFile(string: graph.toJSON(), path: path)
+}
+
 private func createGraph(rawData: [String: Any]) -> Graph? {
   if
     let id = rawData["id"] as? String,

@@ -45,11 +45,19 @@ class GriftJSONTests: XCTestCase {
     XCTAssertTrue(Grift.validateGraphInternals(tg3))
   }
 
+	func testWriteEmptyGraph() {
+    let tg1 = Grift.readFromFile(path: "./Tests/GriftTests/files/basicGraph.json")!
+		XCTAssertTrue(tg1.writeToPath("/tmp/basicGraph.json"))
+    let tg2 = Grift.readFromFile(path: "/tmp/basicGraph.json")
+		XCTAssertTrue(tg2 != nil)
+	}
+
   static var allTests : [(String, (GriftJSONTests) -> () throws -> Void)] {
     return [
       ("testReadEmptyGraph", testReadEmptyGraph),
       ("testReadGraphWithVertices", testReadGraphWithVertices),
-      ("testReadGraphWithVerticesAndEdges", testReadGraphWithVerticesAndEdges)
+      ("testReadGraphWithVerticesAndEdges", testReadGraphWithVerticesAndEdges),
+			("testWriteEmptyGraph", testWriteEmptyGraph)
     ]
   }
 }

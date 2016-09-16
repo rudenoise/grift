@@ -78,6 +78,15 @@ public struct Graph {
   public func addEdge(_ newEdge: Edge) -> Graph? {
     return Grift.addEdge(graph: self, newEdge: newEdge)
   }
+
+	public func toJSON() -> String {
+		let graphString = "{ \"id\": \"\(self.id.uuidString)\", \"vertices\": [], \"edges\": [] }"
+		return graphString
+	}
+
+	public func writeToPath(_ path: String) -> Bool {
+		return writeGraphToFile(graph: self, path: path)
+	}
 }
 
 public typealias VertexPair = (Vertex, Vertex)
