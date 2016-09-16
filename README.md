@@ -50,7 +50,7 @@ let vertexB = Vertex(
 
 // create a basic graph, with one edge
 
-let graphA = Graph(
+if let graphA = Graph(
     vertices: [vertexA, vertexB],
     edges: [
         Edge(
@@ -58,22 +58,32 @@ let graphA = Graph(
             to: vertexB.id
         )
     ]
-)
+) {
+    // grift uses a failable initializer,
+    // so wont initailise unless graph is valid
 
-// make a similar graph with another vertex
+    // make a similar graph with another vertex
 
-let graphB = graphA.addVertex(
-    Vertex(
-        name: "Vertex C"
-        body: "Text again..."
-    )
-)
+    if let graphB = graphA.addVertex(
+        Vertex(
+            name: "Vertex C"
+            body: "Text again..."
+        )
+    ) {
 
-// and another with a further edge
+        // only alows a valid vertex
 
-let graphC = graphB.addEdge(
-    Edge(from: vertexB.id, to: vertexA.id)
-)
+        // make another with a further edge
+
+        if let graphC = graphB.addEdge(
+            Edge(from: vertexB.id, to: vertexA.id)
+        ) {
+            // etc...
+        }
+    }
+
+}
+
 ```
 
 ## License
