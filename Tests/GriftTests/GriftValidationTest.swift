@@ -7,30 +7,30 @@ class GriftValidationTests: XCTestCase {
   func testVertexValidation() {
 
     // EMPTY GRAPH IS VALID
-    XCTAssertTrue(Grift.validateGraphInternals(Graph()))
+    XCTAssertTrue(Graph() != nil)
 
     let va = Vertex(title: "VA", body: "")
     let vb = Vertex(title: "VA", body: "")
 
     // REJECT GRAPH WITH DUPLICATE VERTICES
     let gA = Graph(vertices: [va, va])
-    XCTAssertFalse(validateGraphInternals(gA))
+    XCTAssertTrue(gA == nil)
 
     // ACCEPT GRAPH WITH TWO VETICES
     let gB = Graph(vertices: [va, vb])
-    XCTAssertTrue(validateGraphInternals(gB))
+    XCTAssertTrue(gB != nil)
   }
 
   func testEdgeValidation() {
     // EMPTY GRAPH IS VALID
-    XCTAssertEqual(Grift.validateGraphInternals(Graph()), true)
+    XCTAssertTrue(Graph() != nil)
 
     // REJECT GRAPH WITH INTERNAL EDGES BUT NO VERTECIES
     let gA = Graph(
       edges: [Edge(from: NSUUID(), to: NSUUID())]
     )
-    XCTAssertFalse(
-      validateGraphInternals(gA)
+    XCTAssertTrue(
+      gA == nil
     )
 
     // ACCEPT GRAPH WITH VALID VERTICES
@@ -40,9 +40,7 @@ class GriftValidationTests: XCTestCase {
         Vertex(title: "VB", body: ""),
       ]
     )
-    XCTAssertTrue(
-      validateGraphInternals(gB)
-    )
+    XCTAssertTrue(gB != nil)
 
     // REJECT GRAPH WITH EDGES THAT DON'T MAGCH VERTICES
     let gC = Graph(
@@ -52,10 +50,11 @@ class GriftValidationTests: XCTestCase {
       ],
       edges: [Edge(from: NSUUID(), to: NSUUID())]
     )
-    XCTAssertFalse(
-      validateGraphInternals(gC)
+    XCTAssertTrue(
+      gC == nil
     )
   }
+
   static var allTests : [(String, (GriftValidationTests) -> () throws -> Void)] {
     return [
       ("testEdgeValidation", testEdgeValidation),

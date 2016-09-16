@@ -48,7 +48,7 @@ public struct Vertex {
 
 public struct Graph {
 
-  public init(
+  public init?(
     id: NSUUID? = nil,
     vertices: [Vertex] = [],
     edges: [Edge] = []
@@ -57,6 +57,9 @@ public struct Graph {
     self.id = id ?? NSUUID()
     self.vertices = vertices
     self.edges = edges
+		if validateGraphInternals(self) == false {
+			return nil
+		}
   }
 
   public let id: NSUUID

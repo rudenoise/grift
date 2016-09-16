@@ -37,13 +37,13 @@ class GriftTests: XCTestCase {
           note: "a link l to r"
         )
       ]
-    )
+    )!
 
     XCTAssertEqual(graphA.edges[0].from, vertexA.id)
     XCTAssertEqual(graphA.edges[0].to, vertexB.id)
 
     // TEST THAT DEFAULTS ARE EFFECTIVE
-    let emptyGraph = Grift.Graph()
+    let emptyGraph = Grift.Graph()!
 
     XCTAssertEqual(emptyGraph.edges.count, 0)
     XCTAssertEqual(emptyGraph.vertices.count, 0)
@@ -53,7 +53,7 @@ class GriftTests: XCTestCase {
   func testGraphHasVertexWithId() {
     let vertexA = Vertex(title: "Vertex A", body: "...")
     let vertexB = Vertex(title: "Vertex B", body: "...")
-    let graph = Grift.Graph(vertices: [vertexA])
+    let graph = Grift.Graph(vertices: [vertexA])!
     XCTAssertEqual(graph.hasVertexWithId(vertexA.id), true)
     XCTAssertEqual(graph.hasVertexWithId(vertexB.id), false)
   }
@@ -61,13 +61,13 @@ class GriftTests: XCTestCase {
   func testGraphHasVertex() {
     let vertexA = Vertex(title: "Vertex A", body: "...")
     let vertexB = Vertex(title: "Vertex B", body: "...")
-    let graph = Grift.Graph(vertices: [vertexA])
+    let graph = Grift.Graph(vertices: [vertexA])!
     XCTAssertEqual(graph.hasVertex(vertexA), true)
     XCTAssertEqual(graph.hasVertex(vertexB), false)
   }
 
   func testGraphAddVertex() {
-    let graphA = Grift.Graph()
+    let graphA = Grift.Graph()!
     XCTAssertEqual(graphA.vertices.count, 0)
 
     // ADD A VERTEX USING A METHOD, UNWRAPPIN THE OPTIONAL IMEDIATLY
@@ -91,7 +91,7 @@ class GriftTests: XCTestCase {
     let vertexB = Vertex(title: "VB", body: "...")
     let vertexC = Vertex(title: "VC", body: "...")
     let edgeA = Edge(from: vertexA.id, to: vertexB.id)
-    let graphA = Grift.Graph()
+    let graphA = Grift.Graph()!
     // ENSURE hasEdge IS PRESENT
     // AND RETURNS FALSE WHEN EMPTY
     XCTAssertEqual(
@@ -102,7 +102,7 @@ class GriftTests: XCTestCase {
     let graphB = Grift.Graph(
       vertices: [vertexA, vertexB, vertexC],
       edges: [edgeA]
-    )
+    )!
     XCTAssertEqual(
       graphB.hasEdge(Edge(from: vertexA.id, to: vertexC.id)),
       false
@@ -118,7 +118,7 @@ class GriftTests: XCTestCase {
     let graph = Grift.Graph(vertices: [
       Vertex(title: "Vertex A", body: "..."),
       Vertex(title: "Vertex B", body: "...")
-    ])
+    ])!
 
     // ENSURE A NEW EDGE CAN BE ADDED
     let graph2 = graph.addEdge(

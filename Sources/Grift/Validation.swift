@@ -1,6 +1,6 @@
 import Foundation
 
-public func validateGraphInternals(_ graph: Graph) -> Bool {
+internal func validateGraphInternals(_ graph: Graph) -> Bool {
   return validateVertices(graph) &&
     validateEdges(graph)
 }

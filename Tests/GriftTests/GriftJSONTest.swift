@@ -42,7 +42,6 @@ class GriftJSONTests: XCTestCase {
     XCTAssertEqual(g3.edges[0].id, NSUUID(uuidString: "A9509DD7-8EFB-420F-9D3F-85EDD5854259"))
     XCTAssertEqual(g3.edges[0].from, g3.vertices[0].id)
     XCTAssertEqual(g3.edges[1].id, NSUUID(uuidString: "9E9A109F-3445-4EC1-B8DE-3A0936D127E1"))
-    XCTAssertTrue(Grift.validateGraphInternals(g3))
   }
 
 	func testWriteEmptyGraph() {
