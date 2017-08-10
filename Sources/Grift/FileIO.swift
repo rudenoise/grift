@@ -14,7 +14,6 @@
 
 import Foundation
 
-
 //Read the contents of a UTF8 file into a string
 public func readFile(path: String) -> String? {
   let filePointer = fopen(path, "r")
@@ -60,4 +59,3 @@ public func writeStringToFile(string: String, path: String) -> Bool {
 
   return count == string.utf8.count
 }
-

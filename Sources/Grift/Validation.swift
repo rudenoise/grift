@@ -40,8 +40,7 @@ private func validateVertices(_ graph: Graph) -> Bool {
 }
 
 private func validateEdges(_ graph: Graph) -> Bool {
-  return graph.edges.reduce(true) {
-    valid, edge in
+  return graph.edges.reduce(true) { valid, edge in
     let validFromVertexId = graph.vertices.reduce(false) {
       exists, vertex in
       if vertex.id == edge.from {

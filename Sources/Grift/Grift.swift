@@ -9,14 +9,14 @@ public struct Edge {
     self.note = note
   }
 
-	internal func toDict() -> [String: String] {
-		return [
-			"id": self.id.uuidString,
-			"from": self.from.uuidString,
-			"to": self.from.uuidString,
-			"note": self.note ?? ""
-		]
-	}
+  internal func toDict() -> [String: String] {
+    return [
+      "id": self.id.uuidString,
+      "from": self.from.uuidString,
+      "to": self.from.uuidString,
+      "note": self.note ?? ""
+    ]
+  }
   public let id: NSUUID
   public let from: NSUUID
   public let to: NSUUID
@@ -32,13 +32,13 @@ public struct Vertex {
     self.body = body
   }
 
-	internal func toDict() -> [String: String] {
-		return [
-			"id": self.id.uuidString,
-			"title": self.title,
-			"body": self.body
-		]
-	}
+  internal func toDict() -> [String: String] {
+    return [
+      "id": self.id.uuidString,
+      "title": self.title,
+      "body": self.body
+    ]
+  }
 
   public let id: NSUUID
   public let title: String
@@ -57,9 +57,9 @@ public struct Graph {
     self.id = id ?? NSUUID()
     self.vertices = vertices
     self.edges = edges
-		if validateGraphInternals(self) == false {
-			return nil
-		}
+    if validateGraphInternals(self) == false {
+      return nil
+    }
   }
 
   public let id: NSUUID
@@ -98,28 +98,28 @@ public struct Graph {
     return Grift.addEdge(graph: self, newEdge: newEdge)
   }
 
-	public func toJSON() -> String? {
-		let graphDict: [String: Any] = [
-			"id": self.id.uuidString,
-			"vertices": self.vertices.map({
-				$0.toDict()
-			}),
-			"edges": self.edges.map({
-				$0.toDict()
-			})
-		]
-		do {
-			let graphData = try JSONSerialization.data(withJSONObject: graphDict)
-			let graphString = String(data: graphData, encoding: String.Encoding.utf8)
-			return graphString ?? nil
-		} catch {
-			return nil
-		}
-	}
+  public func toJSON() -> String? {
+    let graphDict: [String: Any] = [
+      "id": self.id.uuidString,
+      "vertices": self.vertices.map({
+        $0.toDict()
+      }),
+      "edges": self.edges.map({
+        $0.toDict()
+      })
+    ]
+    do {
+      let graphData = try JSONSerialization.data(withJSONObject: graphDict)
+      let graphString = String(data: graphData, encoding: String.Encoding.utf8)
+      return graphString ?? nil
+    } catch {
+      return nil
+    }
+  }
 
-	public func writeToPath(_ path: String) -> Bool {
-		return writeGraphToFile(graph: self, path: path)
-	}
+  public func writeToPath(_ path: String) -> Bool {
+    return writeGraphToFile(graph: self, path: path)
+  }
 }
 
 public typealias VertexPair = (Vertex, Vertex)
